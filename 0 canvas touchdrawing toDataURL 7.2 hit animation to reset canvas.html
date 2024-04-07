@@ -426,6 +426,8 @@ let colores = setInterval(()=>{
 }, 5500 )
 
 plus.addEventListener('click', function (){
+let resetcanvas = window.confirm('are you sure to reset the canvas') 
+if(resetcanvas) {
   ctx.clearRect(0,0, canvas.width, canvas.height )
 /*splice(
 startingindex,
@@ -433,6 +435,7 @@ quantitytodelete,
 elementstobeadded separated by commas)
 */
    lines.splice(0,lines.length)
+} 
 })
 </script>
 
