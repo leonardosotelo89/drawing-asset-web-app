@@ -91,7 +91,7 @@ input{
 
   <canvas id="canvas"></canvas>
   
-  <button id="png">png</button>
+  <button id="png">download your creation as a png</button>
   <button id="Pathorline">closePath</button>
   <button id="undo">undo</button>
   <button id="redo">redo</button>
@@ -310,7 +310,7 @@ ctx.stroke();
 } 
   stop++
   if(stop > lines.length+1){stop = lines.length+1}
-  png.innerHTML = stop 
+  //png.innerHTML = stop 
 }
 
 
@@ -347,7 +347,7 @@ ctx.stroke();
 } 
   stop--
   if(stop <= 1){stop =  1}
-  png.innerHTML = stop
+  //png.innerHTML = stop
 }
 
 redo.addEventListener('click', ()=>{
