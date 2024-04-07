@@ -1,0 +1,434 @@
+<html>
+  <head>
+<meta name="viewport" 
+content="width=device-width,
+                  height=device-height, 
+                  initial-scale=1.0">
+    <title></title>
+    <style>
+*{margin:0px;padding:0px;}
+    body{background-color: rgb(50,50,50);
+               color: lime;
+               user-select: none ;
+} 
+h2{
+  animation:colores 7s 1s linear infinite;
+}
+@keyframes colores{
+  from{
+   filter: hue-rotate(0deg);
+  }to{
+    filter: hue-rotate(360deg);
+  }
+}
+.plus{
+  position: absolute ;
+  right: 0px;
+  top: 0px;
+  width: 50px;
+  height: 50px;
+  text-align: center ;
+  animation:activo 5.5s 0s linear infinite alternate ;
+}
+#png{
+  position: absolute ;
+  top: 0px ;
+  left: calc(50% - 50px);
+  width: 100px;
+  height: 50px ;
+  background-color: blue ;
+  border: 2px solid white ;
+  color: white ;
+}
+#fillchooser{
+  position: absolute ;
+  top: 100px;
+  width: 95%;
+  height: 300px;
+  border: 2px solid cyan ;
+  display: none;
+}
+label{
+  font-size: 40px ;
+}
+#fillchooser :nth-child(1){
+  color: red;
+}
+#fillchooser :nth-child(3){
+  color: green;
+}
+#fillchooser :nth-child(5){
+  color: blue;
+}
+input{
+  position: relative ;
+  width: 100%;
+  height: 50px ;
+}
+#fillcolorshow{
+  position: absolute ;
+  bottom: 0;
+  width: 95%;
+  height: 100px;
+  border: 2px solid cyan ;
+  display: none;
+}
+@keyframes activo{
+  from{
+    
+  }50%{
+    border-radius: 50%;
+  }to{
+    
+  }
+}
+
+    </style>
+  </head>
+  <body>
+   <h2>leonardosotelo89</h2>
+   <div class="plus">+ +</div>
+
+  <canvas id="canvas"></canvas>
+  
+  <button id="png">png</button>
+  <button id="Pathorline">closePath</button>
+  <button id="undo">undo</button>
+  <button id="redo">redo</button>
+  <button id="fill">choosefill</button>
+  
+  <div id="fillchooser">
+    <label for="fr">fred</label>
+    <input id="fr" type="range"
+       min="0.0" max="255.0" step="0.01" value="0.0">
+    <label for="fg">fgreen</label>
+    <input id="fg" type="range"
+       min="0.0" max="255.0" step="0.01" value="0.0">
+     <label for="fb">fblue</label>
+    <input id="fb" type="range"
+       min="0.0" max="255.0" step="0.01" value="0.0">
+  </div>
+  <div id="fillcolorshow"></div>
+  
+  
+  
+<script>
+const canvas = document.getElementById('canvas')
+
+canvas.width = innerWidth
+canvas.height = innerHeight - 50
+canvas.style.position = 'absolute'
+canvas.style.top = 50 + "px"
+const ctx = canvas.getContext('2d')
+ctx.fillStyle = 'darkblue'
+ctx.fillRect(0,0,canvas.width, canvas.height )
+ctx.clearRect(0,0, canvas.width, canvas.height )
+
+//global variables 
+let cporl = false //closePathorline
+let stop = 1
+let undoredo = false
+
+const fillchooser = document.getElementById('fillchooser')
+const fr = document.getElementById('fr')
+const fg = document.getElementById('fg')
+const fb = document.getElementById('fb')
+const fcshow = document.getElementById('fillcolorshow')
+const fill = document.getElementById('fill')
+
+
+let fillcolor = 
+`rgb(${fr.value},${fg.value},${fb.value})`;
+
+const updatefillcolor = setInterval(() => {
+  const r = fr.value;
+  const g = fg.value;
+  const b = fb.value;
+  fcshow.style.backgroundColor = `rgb(${r},${g},${b})`;
+  fillcolor = `rgb(${r},${g},${b})`; // Update fillcolor here
+}, 20);
+
+
+//functions
+function clickdraw(event){
+  let x = event.clientX - 10
+  let y = event.clientY - 50
+  ctx.fillStyle = "white"
+  ctx.fillRect(x, y, 10,10)
+  console.log(x, y) 
+}
+//canvas.onclick = draw
+
+
+const pixels = []
+function touchmovedraw(event){
+  let x = parseInt(event.touches[0].clientX - 10) 
+  let y = parseInt(event.touches[0].clientY - 50) 
+  //console.log(x, y) 
+  const newpixel = [x, y]
+    console.log(newpixel) 
+    pixels.shift(newpixel)
+  ctx.fillStyle = "white"
+  ctx.fillRect(x, y, 15,15)
+}
+//canvas.ontouchmove = touchmovedraw
+
+
+const points = []
+function touchmovepoint(event){
+  //prevent unwanted page reload 
+  event.preventDefault()
+  let x = parseInt(event.touches[0].clientX - 10) 
+  let y = parseInt(event.touches[0].clientY - 50) 
+  //console.log(x, y) 
+  const newpoint = [x, y]
+    console.log(newpoint) 
+    points.unshift(newpoint)
+    console.log('points', points) 
+  ctx.fillStyle = "white"
+  ctx.strokeStyle = 'black'
+  ctx.beginPath()
+  ctx.arc(x, y, 5, 0, 2 * Math.PI)
+  ctx.closePath()
+  ctx.fill()
+ // ctx.stroke()
+}
+//canvas.ontouchmove = touchmovepoint
+/*
+let pointinterval = null
+canvas.ontouchstart = function(event){
+ pointinterval = setInterval(()=>{
+  canvas.ontouchstart = touchmovepoint
+  canvas.ontouchmove = touchmovepoint
+  }, 1)
+}
+*/
+
+//quadratic points
+let qp = []
+let lines = []
+function quadraticline(){
+  let x = parseInt(event.touches[0].clientX - 10) 
+  let y = parseInt(event.touches[0].clientY - 50) 
+  const qpxy = [x, y]
+  qp.push(qpxy)
+ // console.log(qp) 
+ctx.beginPath();
+ctx.quadraticCurveTo(qp[qp.length - 2][0],qp[qp.length - 2][1],qp[qp.length - 1][0],qp[qp.length - 1][1]);
+ctx.lineWidth = 10;
+ctx.strokeStyle = 'black';
+ctx.lineCap ='round'//round or square
+//ctx.closePath()
+ctx.stroke()
+ctx.fillStyle = fillcolor
+ctx.fill();    
+
+  if(undoredo){ 
+//splice(startingindex,quantitytodelete,elementstobeadded )
+   lines.splice(lines.length - stop+1, stop)
+   undoredo = false 
+  } 
+}
+canvas.ontouchmove = quadraticline
+canvas.ontouchend = function(){ 
+  if(cporl){
+ctx.quadraticCurveTo(qp[qp.length-1][0],qp[qp.length-1 ][1],qp[0][0],qp[0][1]);
+ctx.lineWidth = 10;
+ctx.strokeStyle = 'black';
+ctx.lineCap ='round'//round or square
+//ctx.closePath()
+ctx.stroke()
+ctx.fillStyle = fillcolor
+ctx.fill();   
+//ctx.closePath()
+} 
+lines.push([qp, fillcolor, cporl] )
+console.log('lines', lines) 
+if(cporl){
+ // ctx.clearRect(0,0, innerWidth, innerHeight )
+  ctx.beginPath();
+  for(j = 0;j < qp.length - 1;j++){
+ctx.quadraticCurveTo(qp[j][0],qp[j][1],
+                 qp[j+1][0],qp[j+1][1]);
+} 
+ctx.quadraticCurveTo(qp[qp.length-1][0],qp[qp.length-1 ][1],qp[0][0],qp[0][1]);
+ctx.lineWidth = 10;
+ctx.strokeStyle = 'black';
+ctx.lineCap ='round'//round or square
+ctx.closePath()
+ctx.stroke();
+ctx.fillStyle = fillcolor
+ctx.fill();   
+} 
+
+  qp = [] 
+  stop = 1
+  png.innerHTML = stop 
+  console.log("fillcolor", fillcolor) 
+}
+
+
+const Pathorline = document.getElementById('Pathorline')
+Pathorline.addEventListener('click', ()=>{
+  if(cporl){
+    Pathorline.innerHTML = 'closePath'
+    cporl = true
+  }else{
+    Pathorline.innerHTML = 'singleline'
+    cporl = false 
+  }
+  cporl = !cporl
+})
+
+
+const undo = document.getElementById('undo')
+
+function undoshort(){
+  ctx.clearRect(0,0, innerWidth, innerHeight)
+if(stop >= 1){
+  for(i = 0; i < lines.length - stop;i++){
+    ctx.beginPath()
+  for(j = 0;j < lines[i][0].length - 1;j++){
+ctx.quadraticCurveTo(lines[i][0][j][0],lines[i][0][j][1],lines[i][0][j+1][0], lines[i][0][j+1][1]);
+
+ctx.lineWidth = 10;
+ctx.strokeStyle = 'black';
+ctx.lineCap ='round'//round or square
+ctx.stroke();
+  }
+    if(lines[i][2] == true){
+  ctx.closePath()
+  ctx.lineWidth = 10;
+  ctx.strokeStyle = 'black';
+  ctx.lineCap ='round'//round or square
+  ctx.stroke();
+  ctx.fillStyle = lines[i][1]//fillcolor
+  ctx.fill()
+     } 
+  } 
+} 
+  stop++
+  if(stop > lines.length+1){stop = lines.length+1}
+  png.innerHTML = stop 
+}
+
+
+undo.addEventListener('click', ()=>{
+  undoredo = true 
+  undoshort()
+})
+
+const redo = document.getElementById('redo')
+let firstredo = true 
+function redoshort(){
+  ctx.clearRect(0,0, innerWidth, innerHeight)
+if(stop >= 1){
+  for(i = 0; i < lines.length - stop +1;i++){
+    ctx.beginPath()
+  for(j = 0;j < lines[i][0].length - 1;j++){
+ctx.quadraticCurveTo(lines[i][0][j][0],lines[i][0][j][1],lines[i][0][j+1][0], lines[i][0][j+1][1]);
+
+ctx.lineWidth = 10;
+ctx.strokeStyle = 'black';
+ctx.lineCap ='round'//round or square
+ctx.stroke();
+  }
+    if(lines[i][2] == true){
+  ctx.closePath()
+  ctx.lineWidth = 10;
+  ctx.strokeStyle = 'black';
+  ctx.lineCap ='round'//round or square
+  ctx.stroke();
+  ctx.fillStyle = lines[i][1]//fillcolor
+  ctx.fill()
+    } 
+  } 
+} 
+  stop--
+  if(stop <= 1){stop =  1}
+  png.innerHTML = stop
+}
+
+redo.addEventListener('click', ()=>{
+  undoredo = true
+  redoshort()
+})
+
+
+let choosingfill = false 
+fill.addEventListener('click', ()=>{
+  if(!choosingfill) {
+  fillchooser.style.display = 'block'
+  fcshow.style.display = 'block'
+  fill.innerHTML = 'backtodraw'
+  }else if(choosingfill){
+  fillchooser.style.display = 'none'
+  fcshow.style.display = 'none'
+  fill.innerHTML = 'choosefill'
+  }
+  choosingfill = !choosingfill
+})
+
+
+
+function drawpoint(){
+  //touchmove draws a pixel per position
+  //positions are stored in an array
+  //check if positions array not includes newpoint shift newpoint
+}
+
+
+// Function to download the canvas image as a png file
+function downloadCanvasImage() {
+    // Get the canvas element
+    var canvas = document.getElementById('canvas');
+    
+    // Convert the canvas to a data URL
+    var dataURL = canvas.toDataURL('image/png');
+    
+    // Create a link element
+    var link = document.createElement('a');
+    link.href = dataURL;
+    link.download = 'canvas-image.png'; // Specify the filename
+    
+    // Append the link to the body (optional)
+    document.body.appendChild(link);
+    
+    // Trigger the download
+    link.click();
+    
+    // Optionally, remove the link from the body
+    document.body.removeChild(link);
+}
+
+// Example usage
+document.getElementById('png').addEventListener('click', downloadCanvasImage);
+
+
+
+
+/*
+document.body.addEventListener('click', function(){
+  document.body.style.backgroundColor = `rgb(
+  ${Math.floor(Math.random()*256)} , 
+  ${Math.ceil(Math.random()*256)} ,
+  ${Math.round(Math.random()*256)} ) `
+})
+//Math.floor Math.ceil Math.round parseInt
+*/
+let plus = document.querySelector('.plus')
+let colores = setInterval(()=>{
+  plus.style.backgroundColor = `rgb(
+  ${Math.round(Math.random()*256)} , 
+  ${Math.round(Math.random()*256)} ,
+  ${Math.round(Math.random()*256)} ) `
+}, 5500 )
+
+plus.addEventListener('click', function (){
+  ctx.clearRect(0,0, canvas.width, canvas.height )
+})
+</script>
+
+<footer>            <!--              --></footer>
+</body>
+</html> 
