@@ -30,11 +30,15 @@ h2{
   text-align: center ;
   animation:activo 5.5s 0s linear infinite alternate ;
 }
+button{
+padding:5px;
+color:white ;
+background-color:blue ;
+} 
 #png{
   position: absolute ;
   top: 0px ;
   right: 50px;
-  width: 100px;
   height: 50px ;
   background-color: blue ;
   border: 2px solid white ;
@@ -116,9 +120,9 @@ input{
 const canvas = document.getElementById('canvas')
 
 canvas.width = innerWidth
-canvas.height = innerHeight - 50
+canvas.height = innerHeight - 70
 canvas.style.position = 'absolute'
-canvas.style.top = 50 + "px"
+canvas.style.top = 70 + "px"
 const ctx = canvas.getContext('2d')
 ctx.fillStyle = 'darkblue'
 ctx.fillRect(0,0,canvas.width, canvas.height )
