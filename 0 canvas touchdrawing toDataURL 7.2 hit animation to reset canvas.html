@@ -223,10 +223,7 @@ ctx.quadraticCurveTo(qp[qp.length - 2][0],qp[qp.length - 2][1],qp[qp.length - 1]
 ctx.lineWidth = 10;
 ctx.strokeStyle = 'black';
 ctx.lineCap ='round'//round or square
-//ctx.closePath()
 ctx.stroke()
-ctx.fillStyle = fillcolor
-ctx.fill();    
 
   if(undoredo){ 
 //splice(startingindex,quantitytodelete,elementstobeadded )
@@ -235,41 +232,31 @@ ctx.fill();
   } 
 }
 canvas.ontouchmove = quadraticline
+
 canvas.ontouchend = function(){ 
-  if(cporl){
-ctx.quadraticCurveTo(qp[qp.length-1][0],qp[qp.length-1 ][1],qp[0][0],qp[0][1]);
-ctx.lineWidth = 10;
-ctx.strokeStyle = 'black';
-ctx.lineCap ='round'//round or square
-//ctx.closePath()
-ctx.stroke()
-ctx.fillStyle = fillcolor
-ctx.fill();   
-//ctx.closePath()
-} 
-lines.push([qp, fillcolor, cporl] )
-console.log('lines', lines) 
+  
 if(cporl){
- // ctx.clearRect(0,0, innerWidth, innerHeight )
   ctx.beginPath();
   for(j = 0;j < qp.length - 1;j++){
 ctx.quadraticCurveTo(qp[j][0],qp[j][1],
                  qp[j+1][0],qp[j+1][1]);
 } 
-ctx.quadraticCurveTo(qp[qp.length-1][0],qp[qp.length-1 ][1],qp[0][0],qp[0][1]);
+ctx.closePath()
+
 ctx.lineWidth = 10;
 ctx.strokeStyle = 'black';
 ctx.lineCap ='round'//round or square
-ctx.closePath()
 ctx.stroke();
 ctx.fillStyle = fillcolor
 ctx.fill();   
 } 
+lines.push([qp, fillcolor, cporl] )
+console.log('lines', lines) 
 
   qp = [] 
   stop = 1
   //png.innerHTML = stop 
-  console.log("fillcolor", fillcolor) 
+ // console.log("fillcolor", fillcolor) 
 }
 
 
