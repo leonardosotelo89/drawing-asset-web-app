@@ -10,16 +10,20 @@ content="width=device-width,
     body{background-color: rgb(0,0,0);
                color: lime;
 } 
-#p1{
-   width:100%;
-   height:90%;
-   overflow:hidden ;
+a{
+ background-color:blue ;
+ color:white ;
+ border:2px solid white ;
+} 
+#anchorblank{
+position:absolute ;
+right:0px;
 } 
     </style>
   </head>
   <body>
-      <a href="drawing asset web app.html" target="_self" >start drawing self</a>
-      <a href="drawing asset web app.html" target="blank" >start drawing blank</a>
+      <a id="anchorself" href="drawing asset web app.html" target="_self" >start drawing in this tab</a>
+      <a id="anchorblank" href="drawing asset web app.html" target="blank" >start drawing in new tab</a>
 
 
 
@@ -45,12 +49,10 @@ const clickToAnchor = document.createElement('a')
   //clickToAnchor.click()
   document.body.removeChild(clickToAnchor) 
  } 
-const p1 = document.createElement('p') 
-document.body.appendChild(p1) 
-p1.id = 'p1' 
-  for(i=0;i<5000;i++){
-   p1.innerHTML += "⭐" 
-  }
+document.body.backgroundColor = 
+`rgb(${parseInt(Math.random()*256)},
+     ${parseInt(Math.random()*256)},
+     ${parseInt(Math.random()*256)})`
 </script>
 <footer>                        <!--              --></footer>
 </html>
