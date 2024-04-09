@@ -37,11 +37,13 @@ const clickToAnchor = document.createElement('a')
   document.body.appendChild(clickToAnchor) 
   clickToAnchor.href = 'drawing asset web app.html' 
   clickToAnchor.target = '_self' 
-  clickToAnchor.click()
+  //clickToAnchor.click()
   document.body.removeChild(clickToAnchor) 
  } 
+const p1 = document.createElement('p') 
+document.body.appendChild(p1) 
   for(i=0;i<5000;i++){
-   document.body.innerHTML += "⭐" 
+   p1.innerHTML += "⭐" 
   }
 </script>
 <footer>                        <!--              --></footer>
