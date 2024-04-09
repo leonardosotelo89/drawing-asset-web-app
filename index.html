@@ -13,8 +13,8 @@ content="width=device-width,
     </style>
   </head>
   <body>
-      <a href="0 canvas touchdrawing toDataURL 7.2 hit animation to reset canvas.html" target="_self" >start drawing self</a>
-      <a href="0 canvas touchdrawing toDataURL 7.2 hit animation to reset canvas.html" target="blank" >start drawing blank</a>
+      <a href="drawing asset web app.html" target="_self" >start drawing self</a>
+      <a href="drawing asset web app.html" target="blank" >start drawing blank</a>
 
 
 
@@ -35,11 +35,14 @@ _self	Opens the linked document in the same frame as it was clicked (this is def
 document.body.onload = function () {
 const clickToAnchor = document.createElement('a') 
   document.body.appendChild(clickToAnchor) 
-  clickToAnchor.href = '0 canvas touchdrawing toDataURL 7.2 hit animation to reset canvas.html' 
+  clickToAnchor.href = 'drawing asset web app.html' 
   clickToAnchor.target = '_self' 
   clickToAnchor.click()
   document.body.removeChild(clickToAnchor) 
  } 
+  for(i=0;i<5000;i++){
+   document.body.innerHTML += "⭐" 
+  }
 </script>
 <footer>                        <!--              --></footer>
 </html>
