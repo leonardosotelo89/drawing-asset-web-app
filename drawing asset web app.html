@@ -120,15 +120,13 @@ input{
 <script>
 
 const canvas = document.getElementById('canvas')
-  
 canvas.width = innerWidth - 4 
 canvas.height = innerHeight - 90
 canvas.style.position = 'absolute'
 canvas.style.top = 70 + "px"
+  
 const ctx = canvas.getContext('2d')
-ctx.fillStyle = 'darkblue'
-ctx.fillRect(0,0,canvas.width, canvas.height )
-ctx.clearRect(0,0, canvas.width, canvas.height )
+
 
 //global variables 
 let cporl = false //closePathorline
