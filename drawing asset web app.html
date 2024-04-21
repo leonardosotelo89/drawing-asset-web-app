@@ -118,17 +118,17 @@ input{
   
   
 <script>
-const canvas = document.getElementById('canvas')
+
   //reload to solve homescreen shortcut problem
-  let reload = false
+  let reload = 0
   document.body.onload = function() {
     if(reload === false) {
     window.location.reload()
-    document.body.innerHTML += "reloaded true" 
-    reload = true
+    document.body.innerHTML += "reloaded one" 
+    reload += 1
      } 
   } 
-
+const canvas = document.getElementById('canvas')
 canvas.width = innerWidth - 4 
 canvas.height = innerHeight - 90
 canvas.style.position = 'absolute'
