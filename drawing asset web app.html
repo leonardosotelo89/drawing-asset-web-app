@@ -122,9 +122,9 @@ const canvas = document.getElementById('canvas')
   //reload to solve homescreen shortcut problem
   let reload = false
   document.body.onload = function() {
-    if(reload == false) {
+    if(reload === false) {
     window.location.reload()
-    document.body.innerHTML += "reloaded" 
+    document.body.innerHTML += "reloaded true" 
     reload = true
      } 
   } 
