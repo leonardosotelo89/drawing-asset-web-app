@@ -155,59 +155,6 @@ const updatefillcolor = setInterval(() => {
 
 
 //functions
-function clickdraw(event){
-  let x = event.clientX - 10
-  let y = event.clientY - 50
-  ctx.fillStyle = "white"
-  ctx.fillRect(x, y, 10,10)
-  console.log(x, y) 
-}
-//canvas.onclick = draw
-
-
-const pixels = []
-function touchmovedraw(event){
-  let x = parseInt(event.touches[0].clientX - 10) 
-  let y = parseInt(event.touches[0].clientY - 50) 
-  //console.log(x, y) 
-  const newpixel = [x, y]
-    console.log(newpixel) 
-    pixels.shift(newpixel)
-  ctx.fillStyle = "white"
-  ctx.fillRect(x, y, 15,15)
-}
-//canvas.ontouchmove = touchmovedraw
-
-
-const points = []
-function touchmovepoint(event){
-  //prevent unwanted page reload 
-  event.preventDefault()
-  let x = parseInt(event.touches[0].clientX - 10) 
-  let y = parseInt(event.touches[0].clientY - 50) 
-  //console.log(x, y) 
-  const newpoint = [x, y]
-    console.log(newpoint) 
-    points.unshift(newpoint)
-    console.log('points', points) 
-  ctx.fillStyle = "white"
-  ctx.strokeStyle = 'black'
-  ctx.beginPath()
-  ctx.arc(x, y, 5, 0, 2 * Math.PI)
-  ctx.closePath()
-  ctx.fill()
- // ctx.stroke()
-}
-//canvas.ontouchmove = touchmovepoint
-/*
-let pointinterval = null
-canvas.ontouchstart = function(event){
- pointinterval = setInterval(()=>{
-  canvas.ontouchstart = touchmovepoint
-  canvas.ontouchmove = touchmovepoint
-  }, 1)
-}
-*/
 
 //quadratic points
 let qp = []
@@ -394,21 +341,12 @@ function downloadCanvasImage() {
     document.body.removeChild(link);
 }
 
-// Example usage
+//usage
 document.getElementById('png').addEventListener('click', downloadCanvasImage);
 
 
 
-
-/*
-document.body.addEventListener('click', function(){
-  document.body.style.backgroundColor = `rgb(
-  ${Math.floor(Math.random()*256)} , 
-  ${Math.ceil(Math.random()*256)} ,
-  ${Math.round(Math.random()*256)} ) `
-})
-//Math.floor Math.ceil Math.round parseInt
-*/
+//dynamic logo
 let plus = document.querySelector('.plus')
 let colores = setInterval(()=>{
   plus.style.backgroundColor = `rgb(
@@ -417,14 +355,15 @@ let colores = setInterval(()=>{
   ${Math.round(Math.random()*256)} ) `
 }, 5500 )
 
+//if click dynamic logo canvas will be reset
 plus.addEventListener('click', function (){
 let resetcanvas = window.confirm('are you sure to reset the canvas?') 
 if(resetcanvas) {
   ctx.clearRect(0,0, canvas.width, canvas.height )
-/*splice(
-startingindex,
-quantitytodelete,
-elementstobeadded separated by commas)
+/*
+splice(startingindex,
+       quantitytodelete,
+       elementstobeadded separated by commas)
 */
    lines.splice(0,lines.length)
 } 
