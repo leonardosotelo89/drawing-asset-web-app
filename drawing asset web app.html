@@ -90,10 +90,16 @@ input{
     
   }
 }
-
+#container{
+ position:absolute ;
+ width:100%;
+ height:100%;
+ } 
     </style>
   </head>
   <body>
+
+    <div id="container" >
    <h2>drawing asset web app</h2>
    <div class="plus">+ +</div>
 
@@ -121,16 +127,16 @@ input{
   <div id="fillcolorshow"></div>
   
   
-  
+    </div>
 <script>
-
-const screen = document.getElementById('screen') 
+let container = document.getElementById('container') 
+let screen = document.getElementById('screen') 
   screen.addEventListener('click',function(){
    if(screen.innerHTML == 'exitFullscreen' ) {
-     document.body.exitFullscreen()
+     document.container.exitFullscreen()
      screen.innerHTML = 'requestFullscreen' 
-    }else{
-     document.body.requestFullscreen()
+    }else if(screen.innerHTML == 'requestFullscreen') {
+     document.container.requestFullscreen()
      screen.innerHTML = 'exitFullscreen' 
     } 
   }
