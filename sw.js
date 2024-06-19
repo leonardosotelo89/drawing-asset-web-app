@@ -67,6 +67,7 @@ self.addEventListener('install', (event) => {
     addResourcesToCache([
       './',
       './index.html',
+      './drawing asset web app.html',
       './app.js'
     ])
   );
