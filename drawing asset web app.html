@@ -145,12 +145,13 @@ if(!navigator.onLine){
 } 
 
 //soft reload 
-if (!sessionStorage.getItem('reloaded') && navigator.onLine) {
+if (!sessionStorage.getItem('reloaded') && 
+     navigator.onLine) {
             setTimeout(() => {
                 window.location.reload();
                 sessionStorage.setItem('reloaded', 'true');
             }, 0);
-        }
+}
   
 
 const canvas = document.getElementById('canvas')
