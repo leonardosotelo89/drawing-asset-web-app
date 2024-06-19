@@ -40,6 +40,9 @@ color:white ;
 background-color:blue ;
 border:2px solid white ;
 } 
+#screen{
+margin-left:50px;
+ } 
 #png{
   position: absolute ;
   top: 0px ;
@@ -101,6 +104,8 @@ input{
   <button id="undo">undo</button>
   <button id="redo">redo</button>
   <button id="fill">choosefill</button>
+
+  <button id="screen">exitFullscreen</button>
   
   <div id="fillchooser">
     <label for="fr">fred</label>
@@ -118,6 +123,18 @@ input{
   
   
 <script>
+
+const screen = document.getElementById('screen') 
+  screen.addEventListener('click',function(){
+   if(screen.innerHTML == 'exitFullscreen' ) {
+     document.body.exitFullscreen()
+     screen.innerHTML = 'requestFullscreen' 
+    }else{
+     document.body.requestFullscreen()
+     screen.innerHTML = 'exitFullscreen' 
+    } 
+  }
+                          
 const h2 = document.querySelector('h2') 
   window.addEventListener('beforeinstallprompt', (e) => {
   // Prevent the default behavior of the event
