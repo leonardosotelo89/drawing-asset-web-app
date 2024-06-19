@@ -76,9 +76,8 @@ input{
 #fillcolorshow{
   position: absolute ;
   bottom: 0px;
-  width: calc(100%-2px);
+  width: 100%;
   height: 100px;
-  border: 2px solid cyan ;
   display: none;
 }
 @keyframes activo{
@@ -115,13 +114,13 @@ input{
   <button id="screen">requestFullscreen</button>
   
   <div id="fillchooser">
-    <label for="fr">fred</label>
+    <label for="fr">fill red</label>
     <input id="fr" type="range"
        min="0.0" max="255.0" step="0.01" value="0.0">
-    <label for="fg">fgreen</label>
+    <label for="fg">fill green</label>
     <input id="fg" type="range"
        min="0.0" max="255.0" step="0.01" value="0.0">
-     <label for="fb">fblue</label>
+     <label for="fb">fill blue</label>
     <input id="fb" type="range"
        min="0.0" max="255.0" step="0.01" value="0.0">
   </div>
