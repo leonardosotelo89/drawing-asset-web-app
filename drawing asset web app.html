@@ -141,10 +141,12 @@ const h2 = document.querySelector('h2')
 });
 
 
-setTimeout(() =>{
-   window.location.reload()
-}, 2000)
-
+if (!sessionStorage.getItem('reloaded')) {
+            setTimeout(() => {
+                window.location.reload();
+                sessionStorage.setItem('reloaded', 'true');
+            }, 2000);
+        }
   
 const canvas = document.getElementById('canvas')
 canvas.width = window.innerWidth - 4 
