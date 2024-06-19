@@ -139,6 +139,18 @@ const h2 = document.querySelector('h2')
   // Show the install prompt
   e.prompt('install drawing asset web app to homescreen');
 });
+
+
+let reloadcount = 0
+function softreload() {
+  if(reloadcount <= 1) {
+   window.location.reload()
+   reloadcount + 1
+  } 
+} 
+window.addEventListener('DOMContentLoaded', softreload) 
+
+
   
 const canvas = document.getElementById('canvas')
 canvas.width = window.innerWidth - 4 
