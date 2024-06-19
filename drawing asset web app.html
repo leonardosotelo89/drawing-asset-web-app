@@ -131,13 +131,14 @@ input{
 <script>
 let container = document.getElementById('container') 
 let screen = document.getElementById('screen') 
+  
   screen.addEventListener('click',function(){
-   if(screen.innerHTML == 'exitFullscreen' ) {
-     exitFullscreen()
-     screen.innerHTML = 'requestFullscreen' 
-    }else if(screen.innerHTML == 'requestFullscreen') {
+   if(screen.innerHTML == 'requestFullscreen' ) {
      container.requestFullscreen()
      screen.innerHTML = 'exitFullscreen' 
+    }else if(screen.innerHTML == 'exitFullscreen') {
+     exitFullscreen()
+     screen.innerHTML = 'requestFullscreen' 
     } 
   }
                           
