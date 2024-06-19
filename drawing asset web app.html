@@ -133,10 +133,10 @@ let container = document.getElementById('container')
 let screen = document.getElementById('screen') 
   screen.addEventListener('click',function(){
    if(screen.innerHTML == 'exitFullscreen' ) {
-     document.container.exitFullscreen()
+     exitFullscreen()
      screen.innerHTML = 'requestFullscreen' 
     }else if(screen.innerHTML == 'requestFullscreen') {
-     document.container.requestFullscreen()
+     container.requestFullscreen()
      screen.innerHTML = 'exitFullscreen' 
     } 
   }
