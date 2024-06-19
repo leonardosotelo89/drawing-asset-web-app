@@ -130,19 +130,18 @@ input{
   
     </div>
 <script>
-let container = document.getElementById('container') 
-let screen = document.getElementById('screen') 
-  
-  screen.addEventListener('click',function(){
-   if(screen.innerHTML == 'requestFullscreen' ) {
-     container.requestFullscreen()
-     screen.innerHTML = 'exitFullscreen' 
-    }
-   if(screen.innerHTML == 'exitFullscreen') {
-     container.exitFullscreen()
-     screen.innerHTML = 'requestFullscreen' 
-    } 
-  }) 
+let container = document.getElementById('container');
+let screen = document.getElementById('screen');
+
+screen.addEventListener('click', function() {
+  if (screen.innerHTML == 'requestFullscreen') {
+    container.requestFullscreen();
+    screen.innerHTML = 'exitFullscreen';
+  } else if (screen.innerHTML == 'exitFullscreen') {
+    document.exitFullscreen();
+    screen.innerHTML = 'requestFullscreen';
+  }
+});
                           
 const h2 = document.querySelector('h2') 
   window.addEventListener('beforeinstallprompt', (e) => {
