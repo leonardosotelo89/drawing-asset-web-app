@@ -145,11 +145,10 @@ let reloadcount = 0
 function softreload() {
   if(reloadcount <= 1) {
    window.location.reload()
-   reloadcount + 1
+   reloadcount += 1
   } 
 } 
-window.addEventListener('DOMContentLoaded', softreload) 
-
+setTimeout(softreload, 2000) 
 
   
 const canvas = document.getElementById('canvas')
