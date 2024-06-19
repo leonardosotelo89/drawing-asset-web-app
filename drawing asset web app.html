@@ -137,7 +137,8 @@ let screen = document.getElementById('screen')
    if(screen.innerHTML == 'requestFullscreen' ) {
      container.requestFullscreen()
      screen.innerHTML = 'exitFullscreen' 
-    }else if(screen.innerHTML == 'exitFullscreen') {
+    }
+   if(screen.innerHTML == 'exitFullscreen') {
      exitFullscreen()
      screen.innerHTML = 'requestFullscreen' 
     } 
