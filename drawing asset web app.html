@@ -140,7 +140,11 @@ const h2 = document.querySelector('h2')
   e.prompt('install drawing asset web app to homescreen');
 });
 
+if(!navigator.onLine){
+document.exitFullscreen()
+} 
 
+//soft reload 
 if (!sessionStorage.getItem('reloaded') && navigator.onLine) {
             setTimeout(() => {
                 window.location.reload();
@@ -148,6 +152,7 @@ if (!sessionStorage.getItem('reloaded') && navigator.onLine) {
             }, 0);
         }
   
+
 const canvas = document.getElementById('canvas')
 canvas.width = window.innerWidth - 4 
 canvas.height = window.innerHeight - 90
