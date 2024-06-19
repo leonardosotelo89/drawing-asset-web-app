@@ -141,14 +141,9 @@ const h2 = document.querySelector('h2')
 });
 
 
-let reloadcount = 0
-function softreload() {
-  if(reloadcount <= 1) {
+setTimeout(() =>{
    window.location.reload()
-   reloadcount += 1
-  } 
-} 
-setTimeout(softreload, 2000) 
+}, 2000)
 
   
 const canvas = document.getElementById('canvas')
