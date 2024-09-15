@@ -68,8 +68,7 @@ self.addEventListener('install', (event) => {
       './',
       './index.html',
       './drawing asset web app.html',
-      './app.js', 
-      './sw.js'
+      './app.js'
     ])
   );
 });
